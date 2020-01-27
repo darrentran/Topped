@@ -12,20 +12,19 @@ const theme = createMuiTheme({
         },
         secondary: {
             main: '#2d2d2d',
-            light: '#d2d2d2'
+            light: '#d2d2d2',
         },
         success: {
-            main: '#92cbc5'
-        }
-    }
+            main: '#92cbc5',
+        },
+    },
 });
-
 
 ReactDOM.render(
     <MuiThemeProvider theme={theme}>
         <App />
     </MuiThemeProvider>,
-    document.getElementById('root')
+    document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change

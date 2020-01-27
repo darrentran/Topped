@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import { Link, withRouter } from "react-router-dom";
-import { compose } from "recompose";
+import React, { Component } from 'react';
+// import { Link, withRouter } from 'react-router-dom';
+// import { compose } from 'recompose';
 // import { withFirebase } from "../Firebase";
 // import * as ROUTES from "../../constants/routes";
 
@@ -13,11 +13,11 @@ const SignUpPage = () => (
 );
 
 const INITIAL_STATE = {
-    username: "",
-    email: "",
-    passwordOne: "",
-    passwordTwo: "",
-    error: false
+    username: '',
+    email: '',
+    passwordOne: '',
+    passwordTwo: '',
+    error: false,
 };
 
 interface ILoginComponentState {
@@ -58,39 +58,43 @@ class SignUpFormBase extends Component<ILoginComponentProps, ILoginComponentStat
     render() {
         const { username, email, passwordOne, passwordTwo, error } = this.state;
 
-        const isInvalid =
-            passwordOne !== passwordTwo ||
-            passwordOne === "" ||
-            email === "" ||
-            username === "";
+        const isInvalid = passwordOne !== passwordTwo || passwordOne === '' || email === '' || username === '';
 
         return (
             <form onSubmit={this.onSubmit}>
                 <input
                     name="username"
                     value={username}
-                    onChange={(event: any) => { this.setState({ username: event.target.value }) }}
+                    onChange={(event: any) => {
+                        this.setState({ username: event.target.value });
+                    }}
                     type="text"
                     placeholder="Full Name"
                 />
                 <input
                     name="email"
                     value={email}
-                    onChange={(event: any) => { this.setState({ email: event.target.value }) }}
+                    onChange={(event: any) => {
+                        this.setState({ email: event.target.value });
+                    }}
                     type="text"
                     placeholder="Email"
                 />
                 <input
                     name="passwordOne"
                     value={passwordOne}
-                    onChange={(event: any) => { this.setState({ passwordOne: event.target.value }) }}
+                    onChange={(event: any) => {
+                        this.setState({ passwordOne: event.target.value });
+                    }}
                     type="text"
                     placeholder="Password"
                 />
                 <input
                     name="passwordTwo"
                     value={passwordTwo}
-                    onChange={(event: any) => { this.setState({ passwordTwo: event.target.value }) }}
+                    onChange={(event: any) => {
+                        this.setState({ passwordTwo: event.target.value });
+                    }}
                     type="text"
                     placeholder="Confirm Password"
                 />
@@ -116,7 +120,6 @@ const SignUpLink = () => (
 //     withRouter,
 //     withFirebase
 // )(SignUpFormBase);
-
 
 export default SignUpPage;
 
