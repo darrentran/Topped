@@ -6,7 +6,6 @@
 .pnp.js
 # testing
 /coverage
-src\components\Competition\CompetitionCardOLD.tsx
 
 # production
 /build
