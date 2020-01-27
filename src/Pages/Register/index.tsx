@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import { Link, withRouter } from "react-router-dom";
 import { compose } from "recompose";
-// import { withFirebase } from "../Firebase";
-// import * as ROUTES from "../../constants/routes";
+import { withFirebase } from "../../Firebase/Database";
+import * as ROUTES from "../../constants/routes";
 
 const SignUpPage = () => (
     <div>
         <h1>Sign Up</h1>
-        {/* <SignUpForm /> */}
-        <SignUpFormBase history={null} firebase={null} />
+        <SignUpForm />
     </div>
 );
 
@@ -20,7 +19,7 @@ const INITIAL_STATE = {
     error: false
 };
 
-interface ILoginComponentState {
+interface IRegisterComponentState {
     username: string;
     email: string;
     passwordOne: string;
@@ -28,29 +27,29 @@ interface ILoginComponentState {
     error: boolean;
 }
 
-interface ILoginComponentProps {
+interface IRegisterComponentProps {
     firebase: any;
     history: any;
 }
 
-class SignUpFormBase extends Component<ILoginComponentProps, ILoginComponentState> {
-    constructor(props: ILoginComponentProps) {
+class SignUpFormBase extends Component<IRegisterComponentProps, IRegisterComponentState> {
+    constructor(props: IRegisterComponentProps) {
         super(props);
         this.state = { ...INITIAL_STATE };
     }
 
     onSubmit = (event: any) => {
-        // const { email, passwordOne } = this.state;
+        const { email, passwordOne } = this.state;
 
-        // this.props.firebase
-        //     .doCreateUserWithEmailAndPassword(email, passwordOne)
-        //     .then(authUser => {
-        //         this.setState({ ...INITIAL_STATE });
-        //         this.props.history.push(ROUTES.HOME);
-        //     })
-        //     .catch((error: any) => {
-        //         this.setState({ error });
-        //     });
+        this.props.firebase
+            .doCreateUserWithEmailAndPassword(email, passwordOne)
+            .then((authUser: any) => {
+                this.setState({ ...INITIAL_STATE });
+                this.props.history.push(ROUTES.LANDING);
+            })
+            .catch((error: any) => {
+                this.setState({ error });
+            });
 
         event.preventDefault();
     };
@@ -99,7 +98,8 @@ class SignUpFormBase extends Component<ILoginComponentProps, ILoginComponentStat
                     Sign Up
                 </button>
 
-                {error && <p>{error}</p>}
+                {/* TODO: Put proper error message */}
+                {error && <p>Error Message</p>}
             </form>
         );
     }
@@ -108,14 +108,14 @@ class SignUpFormBase extends Component<ILoginComponentProps, ILoginComponentStat
 const SignUpLink = () => (
     <p>
         Don't have an account?
-        {/* <Link to={ROUTES.SIGN_UP}>Sign Up</Link> */}
+        <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
     </p>
 );
 
-// const SignUpForm = compose(
-//     withRouter,
-//     withFirebase
-// )(SignUpFormBase);
+const SignUpForm = compose<any, any>(
+    withRouter,
+    withFirebase
+)(SignUpFormBase);
 
 
 export default SignUpPage;
