@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
-
+import { FormControl, Input, InputLabel, Button } from '@material-ui/core';
 import { SignUpLink } from "../../Pages/Register";
 // import { PasswordForgetLink } from '../PasswordForget';
 import { withFirebase } from "../../Firebase/Database";
@@ -58,24 +58,20 @@ class SignInFormBase extends Component<ILoginComponentProps, ILoginComponentStat
         const isInvalid = password === "" || email === "";
 
         return (
+            // TODO: Style the form to make it look nicer
             <form onSubmit={this.onSubmit}>
-                <input
-                    name="email"
-                    value={email}
-                    onChange={(event: any) => { this.setState({ email: event.target.value }) }}
-                    type="text"
-                    placeholder="Email Address"
-                />
-                <input
-                    name="password"
-                    value={password}
-                    onChange={(event: any) => { this.setState({ password: event.target.value }) }}
-                    type="text"
-                    placeholder="Password"
-                />
-                <button disabled={isInvalid} type="submit">
+                <FormControl margin="normal" required fullWidth>
+                    <InputLabel htmlFor="email">Email Address</InputLabel>
+                    <Input id="email" name="email" autoComplete="off" autoFocus value={email} onChange={(event: any) => { this.setState({ email: event.target.value }) }} />
+                </FormControl>
+                <FormControl margin="normal" required fullWidth>
+                    <InputLabel htmlFor="password">Password</InputLabel>
+                    <Input name="password" type="password" id="password" autoComplete="off" value={password} onChange={(event: any) => { this.setState({ password: event.target.value }) }} />
+                </FormControl>
+
+                <Button disabled={isInvalid} type="submit">
                     Sign In
-                </button>
+                </Button>
 
                 {/* TODO: Put proper error message */}
                 {error && <p>Error Message</p>}

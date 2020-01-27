@@ -24,8 +24,8 @@ const App: React.FC = () => {
       <Router>
 
         <Route exact path={ROUTES.LANDING} component={LandingPage} />
-        <Route path={ROUTES.SIGN_UP} component={RegisterPage} />
-        <Route path={ROUTES.SIGN_IN} component={LoginPage} />
+        <Route path={ROUTES.REGISTER} component={RegisterPage} />
+        <Route path={ROUTES.LOGIN} component={LoginPage} />
         {/* <Route exact path={ROUTES.COMPETITION} component={CompetitionPage} />
         <Route exact path={ROUTES.NEWCOMP} component={NewCompetitionPage} />
         <Route exact path={ROUTES.LEADERBOARD} component={LeaderboardPage} />
