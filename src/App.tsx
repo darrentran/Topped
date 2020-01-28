@@ -8,6 +8,7 @@ import LandingPage from "./Pages/Landing";
 import LoginPage from "./Pages/Login";
 import RegisterPage from "./Pages/Register";
 import * as ROUTES from "./constants/routes";
+import { withAuthentication } from "./Firebase/Session"
 import './App.css';
 
 const App: React.FC = () => {
@@ -15,30 +16,36 @@ const App: React.FC = () => {
   return (
     <div className="App">
 
-      <AppBar position="static">
-        <Toolbar>
-          <SideDrawer />
-        </Toolbar>
-      </AppBar>
-
       <Router>
+        <div>
 
-        <Route exact path={ROUTES.LANDING} component={LandingPage} />
-        <Route path={ROUTES.REGISTER} component={RegisterPage} />
-        <Route path={ROUTES.LOGIN} component={LoginPage} />
-        {/* <Route exact path={ROUTES.COMPETITION} component={CompetitionPage} />
-        <Route exact path={ROUTES.NEWCOMP} component={NewCompetitionPage} />
-        <Route exact path={ROUTES.LEADERBOARD} component={LeaderboardPage} />
+          <AppBar position="static">
+            <Toolbar>
+              <SideDrawer />
+            </Toolbar>
+          </AppBar>
 
-        <Route
-          path={ROUTES.PASSWORD_FORGET}
-          component={PasswordForgetPage}
-        />
-        <Route path={ROUTES.ACCOUNT} component={AccountPage} /> */}
+          <Route exact path={ROUTES.LANDING} component={LandingPage} />
+          <Route path={ROUTES.REGISTER} component={RegisterPage} />
+          <Route path={ROUTES.LOGIN} component={LoginPage} />
+          {/* <Route exact path={ROUTES.COMPETITION} component={CompetitionPage} />
+          <Route exact path={ROUTES.NEWCOMP} component={NewCompetitionPage} />
+          <Route exact path={ROUTES.LEADERBOARD} component={LeaderboardPage} />
+
+          <Route
+            path={ROUTES.PASSWORD_FORGET}
+            component={PasswordForgetPage}
+          />
+          <Route path={ROUTES.ACCOUNT} component={AccountPage} /> */}
+        </div>
+
+
       </Router>
+
+      
 
     </div>
   );
 }
 
-export default App;
+export default withAuthentication(App);
