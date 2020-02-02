@@ -12,10 +12,11 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 import { AuthUserContext } from "../../Firebase/Session";
-import { FirebaseContext } from "../../Firebase/Database";
+import { FirebaseContext, withFirebase } from "../../Firebase/Database";
+import { compose } from 'recompose';
 
 const useStyles = makeStyles({
     list: {
@@ -26,7 +27,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function TemporaryDrawer() {
+function TemporaryDrawer() {
     const classes = useStyles();
 
     const [openNested, setOpenNested] = React.useState(true);
@@ -136,3 +137,10 @@ export default function TemporaryDrawer() {
         </div>
     );
 }
+
+const SideDrawer = compose(
+    withRouter,
+    withFirebase
+)(TemporaryDrawer);
+
+export default SideDrawer;
