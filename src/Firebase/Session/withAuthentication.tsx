@@ -2,10 +2,21 @@ import React from "react";
 
 import AuthUserContext from "./context";
 import { withFirebase } from "../Database";
+import Firebase from '../Database/firebase';
 
-const withAuthentication = Component => {
-    class withAuthentication extends React.Component {
-        constructor(props) {
+
+type IWithAuthenticationProps = {
+    firebase: Firebase;
+}
+
+type IWithAuthenticationState = {
+    authUser: any;
+}
+
+const withAuthentication = (Component: any) => {
+
+    class withAuthentication extends React.Component<IWithAuthenticationProps, IWithAuthenticationState> {
+        constructor(props: IWithAuthenticationProps) {
             super(props);
 
             this.state = {
@@ -14,8 +25,8 @@ const withAuthentication = Component => {
         }
 
         componentDidMount() {
-            this.listener = this.props.firebase.auth.onAuthStateChanged(
-                authUser => {
+            this.props.firebase.auth.onAuthStateChanged(
+                (authUser: any) => {
                     authUser
                         ? this.setState({ authUser })
                         : this.setState({ authUser: null });
@@ -23,13 +34,10 @@ const withAuthentication = Component => {
             );
         }
 
-        componentWillUnmount() {
-            this.listener();
-        }
-
         render() {
             return (
                 <AuthUserContext.Provider value={this.state.authUser}>
+                    {console.log(this.state.authUser)}
                     <Component {...this.props} />
                 </AuthUserContext.Provider>
             );

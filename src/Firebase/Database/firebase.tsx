@@ -16,8 +16,8 @@ const COMPETITIONS_COLLECTION = 'competitions';
 
 class Firebase {
     // TODO: Fix types
-    auth: any;
-    firestore: any;
+    auth: firebase.auth.Auth;
+    firestore: firebase.firestore.Firestore;
 
     constructor() {
         app.initializeApp(firebaseConfig);
@@ -41,7 +41,7 @@ class Firebase {
 
     doPasswordReset = (email: string) => this.auth.sendPasswordResetEmail(email);
 
-    doPasswordUpdate = (password: string) => this.auth.currentUser.updatePassword(password);
+    doPasswordUpdate = (password: string) => this.auth.currentUser!.updatePassword(password);
 
     /**
      * Creates a new competition entry or updates an existing one
