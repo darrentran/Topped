@@ -1,0 +1,22 @@
+language: node_js
+node_js:
+  - 12.14.1
+warnings_are_errors: false
+branches:
+  only:
+    - master
+cache:
+  directories:
+    - node_modules
+before_install:
+  - npm update
+install:
+  - npm install
+script:
+  - npm run lint
+  - npm run build
+deploy:
+  provider: firebase
+  skip_cleanup: true
+  token:
+    secure: $FIREBASE_HOSTING_KEY

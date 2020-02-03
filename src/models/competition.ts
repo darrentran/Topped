@@ -1,20 +1,27 @@
 var currentDate = new Date().toJSON();
-var statusEnum = Object.freeze({"active":1, "completed":2, "not_started":3})
+var statusEnum = Object.freeze({ active: 1, completed: 2, not_started: 3 });
 
 export default class Competition {
+    id: string;
+    name: string;
+    desc: string;
+    startDate: string;
+    endDate: string;
+    fee: string;
+    problems: string;
+    status: number;
+    admins: string;
 
-        id: string;
-        name: string;
-        desc: string;
-        startDate: string;
-        endDate: string;
-        fee: string;
-        problems: string;
-        status: number;
-        admins: string;
-
-
-    constructor(id: string, name: string, desc: string, startDate: string, endDate: string, problems: string, fee: string, admins: string) {
+    constructor(
+        id: string,
+        name: string,
+        desc: string,
+        startDate: string,
+        endDate: string,
+        problems: string,
+        fee: string,
+        admins: string,
+    ) {
         this.id = id;
         this.name = name;
         this.desc = desc;
@@ -29,4 +36,4 @@ export default class Competition {
         }
         this.admins = admins;
     }
-  }
+}

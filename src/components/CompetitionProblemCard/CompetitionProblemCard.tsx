@@ -14,7 +14,6 @@ import Box from '@material-ui/core/Box';
 import './CompetitionProblemCard.css';
 // const COLORS = '../constants/Colors';
 
-
 interface ICompetitionProblemCardProps {
     problem_number: number;
     attempts_made: number;
@@ -27,72 +26,84 @@ interface ICompetitionProblemCardState {
     completed: boolean;
 }
 
-export default class CompetitionProblemCard extends Component<ICompetitionProblemCardProps, ICompetitionProblemCardState> {
+export default class CompetitionProblemCard extends Component<
+    ICompetitionProblemCardProps,
+    ICompetitionProblemCardState
+> {
     constructor(props: ICompetitionProblemCardProps) {
-        super(props)
+        super(props);
         this.state = {
             edit: false,
             attempts_made: props.attempts_made,
-            completed: props.completed
+            completed: props.completed,
         };
     }
 
-
     toggleEdit = () => {
-        this.setState((state) => {
+        this.setState(state => {
             return { edit: !state.edit };
         });
-    }
+    };
 
     incrementAttempts = () => {
-        this.setState((state) => {
+        this.setState(state => {
             return { attempts_made: state.attempts_made + 1 };
         });
-    }
+    };
 
     decrementAttempts = () => {
-        this.setState((state) => {
+        this.setState(state => {
             return { attempts_made: state.attempts_made > 0 ? state.attempts_made - 1 : 0 };
         });
-    }
+    };
 
     render() {
         return (
             <Card className="card">
-                <Grid container spacing={2}
-                    direction="row"
-                    alignItems="center"
-                    justify="center">
-
+                <Grid container spacing={2} direction="row" alignItems="center" justify="center">
                     <Grid item xs={2}>
                         <Typography>{this.props.problem_number}</Typography>
                     </Grid>
-                    <Grid item xs={7} style={{ textAlign: "left" }}>
-                        {!this.state.edit
-                            ?
-                            <Typography>Attempts made: <Box component="span" fontWeight="fontWeightBold">{this.state.attempts_made}</Box></Typography>
-                            :
+                    <Grid item xs={7} style={{ textAlign: 'left' }}>
+                        {!this.state.edit ? (
+                            <Typography>
+                                Attempts made:{' '}
+                                <Box component="span" fontWeight="fontWeightBold">
+                                    {this.state.attempts_made}
+                                </Box>
+                            </Typography>
+                        ) : (
                             <div>
-                                <IconButton onClick={this.decrementAttempts}> <RemoveIcon /> </IconButton>
+                                <IconButton onClick={this.decrementAttempts}>
+                                    {' '}
+                                    <RemoveIcon />{' '}
+                                </IconButton>
                                 {this.state.attempts_made}
-                                <IconButton onClick={this.incrementAttempts}> <AddIcon /> </IconButton>
+                                <IconButton onClick={this.incrementAttempts}>
+                                    {' '}
+                                    <AddIcon />{' '}
+                                </IconButton>
                             </div>
-                        }
+                        )}
                     </Grid>
-                    <Grid item xs={1} >
-                        {this.state.completed ? < DoneIcon /> : <CloseIcon />}
+                    <Grid item xs={1}>
+                        {this.state.completed ? <DoneIcon /> : <CloseIcon />}
                     </Grid>
                     <Grid item xs={2}>
-                        {!this.state.edit
-                            ?
-                            <IconButton onClick={this.toggleEdit}> <EditIcon /> </IconButton>
-                            :
-                            <IconButton onClick={this.toggleEdit}> <PlayArrowIcon /> </IconButton>
-                        }
+                        {!this.state.edit ? (
+                            <IconButton onClick={this.toggleEdit}>
+                                {' '}
+                                <EditIcon />{' '}
+                            </IconButton>
+                        ) : (
+                            <IconButton onClick={this.toggleEdit}>
+                                {' '}
+                                <PlayArrowIcon />{' '}
+                            </IconButton>
+                        )}
                     </Grid>
                 </Grid>
             </Card>
-        )
+        );
     }
 }
-

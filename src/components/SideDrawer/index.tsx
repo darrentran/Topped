@@ -38,13 +38,10 @@ function TemporaryDrawer() {
     };
 
     type DrawerSide = 'top' | 'left' | 'bottom' | 'right';
-    const toggleDrawer = (side: DrawerSide, open: boolean) => (
-        event: React.KeyboardEvent | React.MouseEvent,
-    ) => {
+    const toggleDrawer = (side: DrawerSide, open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
         if (
             event.type === 'keydown' &&
-            ((event as React.KeyboardEvent).key === 'Tab' ||
-                (event as React.KeyboardEvent).key === 'Shift')
+            ((event as React.KeyboardEvent).key === 'Tab' || (event as React.KeyboardEvent).key === 'Shift')
         ) {
             return;
         }
@@ -53,10 +50,7 @@ function TemporaryDrawer() {
     };
 
     const sideList = (side: DrawerSide) => (
-        <div
-            className={classes.list}
-            role="presentation"
-        >
+        <div className={classes.list} role="presentation">
             <List
                 component="nav"
                 aria-labelledby="nested-list-subheader"
@@ -75,15 +69,15 @@ function TemporaryDrawer() {
                 </ListItem>
                 <Collapse style={{ paddingLeft: '24px' }} in={openNested} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
-                        <ListItem button >
+                        <ListItem button>
                             {/* <Link to={ROUTES.LANDING}>
                                 <ListItemText onClick={toggleDrawer(side, false)} primary="ALL ACTIVE" />
                             </Link> */}
                         </ListItem>
-                        <ListItem button >
+                        <ListItem button>
                             <ListItemText onClick={toggleDrawer(side, false)} primary="YOUR COMPETITIONS" />
                         </ListItem>
-                        <ListItem button >
+                        <ListItem button>
                             <ListItemText onClick={toggleDrawer(side, false)} primary="PREVIOUS" />
                         </ListItem>
                     </List>
@@ -122,7 +116,7 @@ function TemporaryDrawer() {
 
     return (
         <div>
-            <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer('left', true)} >
+            <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer('left', true)}>
                 <MenuIcon />
             </IconButton>
 
@@ -133,10 +127,10 @@ function TemporaryDrawer() {
             >
                 {sideList('left')}
             </SwipeableDrawer>
-
         </div>
     );
 }
+<<<<<<< HEAD
 
 const SideDrawer = compose(
     withRouter,
@@ -144,3 +138,5 @@ const SideDrawer = compose(
 )(TemporaryDrawer);
 
 export default SideDrawer;
+=======
+>>>>>>> master
