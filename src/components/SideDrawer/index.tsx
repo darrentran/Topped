@@ -130,7 +130,6 @@ function TemporaryDrawer() {
         </div>
     );
 }
-<<<<<<< HEAD
 
 const SideDrawer = compose(
     withRouter,
@@ -138,5 +137,3 @@ const SideDrawer = compose(
 )(TemporaryDrawer);
 
 export default SideDrawer;
-=======
->>>>>>> master
