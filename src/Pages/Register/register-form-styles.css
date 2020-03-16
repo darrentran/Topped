@@ -6,6 +6,10 @@
     align-items: flex-start;
 }
 
+.register-form-inputs {
+    width: inherit;
+}
+
 .register-submit-button {
     align-items: flex-start;
     padding-top: 1%;

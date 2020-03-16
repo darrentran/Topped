@@ -2,8 +2,13 @@
     background-color: white;
     min-height: fit-content;
     border-radius: 8px;
+    padding-top: 1%;
     padding-bottom: 1%;
     align-items: flex-start;
+}
+
+.login-form-inputs {
+    width: inherit;
 }
 
 .login-button {

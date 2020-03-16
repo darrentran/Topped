@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
-import { FormControl, Input, InputLabel, Button, Container, Grid, TextField, Typography } from '@material-ui/core';
+import { Button, Container, Grid, TextField } from '@material-ui/core';
 import { SignUpLink } from "../../Pages/Register";
 // import { PasswordForgetLink } from '../PasswordForget';
 import { withFirebase } from "../../Firebase/Database";
@@ -61,14 +61,40 @@ class SignInFormBase extends Component<ILoginComponentProps, ILoginComponentStat
         return (
             <Container className="login-form-container">
                 <form onSubmit={this.onSubmit}>
-                    <FormControl margin="normal" required fullWidth>
-                        <InputLabel htmlFor="email">Email Address</InputLabel>
-                        <Input id="email" name="email" autoComplete="off" autoFocus value={email} onChange={(event: any) => { this.setState({ email: event.target.value }) }} />
-                    </FormControl>
-                    <FormControl margin="normal" required fullWidth>
-                        <InputLabel htmlFor="password">Password</InputLabel>
-                        <Input name="password" type="password" id="password" autoComplete="off" value={password} onChange={(event: any) => { this.setState({ password: event.target.value }) }} />
-                    </FormControl>
+                    <Grid
+                        container
+                        direction="column"
+                        justify="center"
+                        alignItems="center"
+                    >
+                        <Grid className="login-form-inputs">
+                            <TextField
+                                required
+                                id="Email"
+                                label="Email Address"
+                                value={email}
+                                onChange={(event: any) => { this.setState({ email: event.target.value }) }}
+                                variant="outlined"
+                                fullWidth
+                                autoFocus
+                                margin="normal"
+                                color="secondary"
+                            />
+                        </Grid>
+                        <Grid className="login-form-inputs">
+                            <TextField
+                                required
+                                id="password"
+                                label="Password"
+                                value={password}
+                                onChange={(event: any) => { this.setState({ password: event.target.value }) }}
+                                variant="outlined"
+                                fullWidth
+                                margin="normal"
+                                color="secondary"
+                            />
+                        </Grid>
+                    </Grid>
                     <Grid
                         className="login-button"
                         container

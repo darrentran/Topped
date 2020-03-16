@@ -24,6 +24,8 @@ interface ISubmissionFormState {
     compEndTime: Date,
     compProblems: number;
     compFee: number;
+    compProblemsErrorText: string;
+    compFeeErrorText: string;
 }
 
 const SubmissionPage = () => (
@@ -40,7 +42,9 @@ const INITIAL_STATE = {
     compStartTime: new Date(),
     compEndTime: new Date(),
     compProblems: 0,
-    compFee: 0
+    compFee: 0,
+    compProblemsErrorText: "",
+    compFeeErrorText: "",
 };
 
 class SubmissionFormBase extends Component<any, ISubmissionFormState> {
@@ -65,6 +69,23 @@ class SubmissionFormBase extends Component<any, ISubmissionFormState> {
         this.setState(newState);
     };
 
+    onChangeNumberProblems = (event: { target: { id: any; value: any; } }) => {
+        if (event.target.value < 0) {
+            this.setState({ compProblemsErrorText: "Number of problems canot be negative" });
+        } else {
+            this.setState({ compProblems: event.target.value, compProblemsErrorText: "" });
+        }
+    };
+
+
+    onChangeCompFee = (event: { target: { id: any; value: any; } }) => {
+        if (event.target.value < 0) {
+            this.setState({ compFeeErrorText: "Number of problems canot be negative" });
+        } else {
+            this.setState({ compFee: event.target.value, compFeeErrorText: "" });
+        }
+    };
+
     render() {
         const { compName, compDesc, compDate, compStartTime, compEndTime, compProblems, compFee } = this.state;
         const isInvalid = compName === "" || compDesc === "" || compDate.toString() === "" || compStartTime.toString() === "" || compEndTime.toString() === "" || compProblems === 0;
@@ -85,8 +106,11 @@ class SubmissionFormBase extends Component<any, ISubmissionFormState> {
                                 label="Competition Name"
                                 value={compName}
                                 onChange={this.onChange}
+                                variant="outlined"
                                 fullWidth
                                 autoFocus
+                                margin="normal"
+                                color="secondary"
                             />
                         </Grid>
                         <Grid className="create-form-inputs" >
@@ -100,6 +124,8 @@ class SubmissionFormBase extends Component<any, ISubmissionFormState> {
                                 onChange={this.onChange}
                                 variant="outlined"
                                 fullWidth
+                                margin="normal"
+                                color="secondary"
                             />
                         </Grid>
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -151,24 +177,33 @@ class SubmissionFormBase extends Component<any, ISubmissionFormState> {
                             <TextField
                                 required
                                 id="compProblems"
-                                label="# Problems"
+                                label="Number of Problems"
                                 value={compProblems}
-                                onChange={this.onChange}
+                                error={this.state.compProblemsErrorText.length === 0 ? false : true}
+                                helperText={this.state.compProblemsErrorText}
+                                onChange={this.onChangeNumberProblems}
                                 variant="outlined"
+                                InputProps={{ inputProps: { min: 0 } }}
                                 type="number"
                                 fullWidth
+                                margin="normal"
+                                color="secondary"
                             />
                         </FormControl>
                         <FormControl margin="normal" required fullWidth>
                             <TextField
-                                required
                                 id="compFee"
-                                label="Admission Fee"
+                                label="Admission Fee ($)"
                                 value={compFee}
-                                onChange={this.onChange}
+                                error={this.state.compFeeErrorText.length === 0 ? false : true}
+                                helperText={this.state.compFeeErrorText}
+                                onChange={this.onChangeCompFee}
                                 variant="outlined"
+                                InputProps={{ inputProps: { min: 0 } }}
                                 type="number"
                                 fullWidth
+                                margin="normal"
+                                color="secondary"
                             />
                         </FormControl>
                         <Grid className="create-submit-button" container direction="row" >
@@ -177,7 +212,8 @@ class SubmissionFormBase extends Component<any, ISubmissionFormState> {
                                 id="compSubmit"
                                 type="submit"
                                 disabled={isInvalid}
-                                onClick={this.onSubmit}>
+                                onClick={this.onSubmit}
+                                color="secondary">
                                 Submit
                         </Button>
                         </Grid>
