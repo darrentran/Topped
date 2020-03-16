@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { compose } from "recompose";
 import { Button, Container, Grid, TextField } from '@material-ui/core';
 import { SignUpLink } from "../../Pages/Register";
@@ -20,7 +20,6 @@ const SignInPage = () => (
 interface ILoginComponentState {
     email: string;
     password: string;
-    error: boolean;
 }
 
 interface ILoginComponentProps {
@@ -31,7 +30,6 @@ interface ILoginComponentProps {
 const INITIAL_STATE = {
     email: "",
     password: "",
-    error: false
 };
 
 class SignInFormBase extends Component<ILoginComponentProps, ILoginComponentState> {
@@ -54,7 +52,7 @@ class SignInFormBase extends Component<ILoginComponentProps, ILoginComponentStat
     };
 
     render() {
-        const { email, password, error } = this.state;
+        const { email, password } = this.state;
 
         const isInvalid = password === "" || email === "";
 
@@ -86,6 +84,7 @@ class SignInFormBase extends Component<ILoginComponentProps, ILoginComponentStat
                                 required
                                 id="password"
                                 label="Password"
+                                type="password"
                                 value={password}
                                 onChange={(event: any) => { this.setState({ password: event.target.value }) }}
                                 variant="outlined"
@@ -104,14 +103,18 @@ class SignInFormBase extends Component<ILoginComponentProps, ILoginComponentStat
                             Sign In
                         </Button>
                     </Grid>
-
-                    {/* TODO: Put proper error message */}
-                    {error && <p>Error Message</p>}
                 </form>
             </Container>
         );
     }
 }
+
+const SignInLink = () => (
+    <p>
+        {`Already have an account? `}
+        <Link to={ROUTES.LOGIN}>Login</Link>
+    </p>
+);
 
 
 // TODO: Put proper types when I figure out what it is supposed to be 
@@ -122,4 +125,4 @@ const SignInForm = compose<any, any>(
 
 export default SignInPage;
 
-export { SignInForm };
+export { SignInForm, SignInLink };

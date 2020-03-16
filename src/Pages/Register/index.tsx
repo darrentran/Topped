@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import { compose } from "recompose";
 import { withFirebase } from "../../Firebase/Database";
 import * as ROUTES from "../../constants/routes";
+import { SignInLink } from "../Login";
 import { TextField, Button, Container, Grid } from '@material-ui/core';
 import './register-form-styles.css'
 
@@ -10,6 +11,7 @@ const SignUpPage = () => (
     <div>
         <h1>Sign Up</h1>
         <SignUpForm />
+        <SignInLink />
     </div>
 );
 
@@ -18,15 +20,12 @@ const INITIAL_STATE = {
     email: "",
     password: "",
     confirmPassword: "",
-    error: false
 };
 
 interface IRegisterComponentState {
-    username: string;
     email: string;
     password: string;
     confirmPassword: string;
-    error: boolean;
 }
 
 interface IRegisterComponentProps {
@@ -48,22 +47,19 @@ class SignUpFormBase extends Component<IRegisterComponentProps, IRegisterCompone
             .then((authUser: any) => {
                 this.setState({ ...INITIAL_STATE });
                 this.props.history.push(ROUTES.LANDING);
-            })
-            .catch((error: any) => {
-                this.setState({ error });
             });
 
         event.preventDefault();
     };
 
     render() {
-        const { username, email, password, confirmPassword, error } = this.state;
+        const { email, password, confirmPassword } = this.state;
 
         const isInvalid =
             password !== confirmPassword ||
             password === "" ||
             email === "" ||
-            username === "";
+            this.state.password !== this.state.confirmPassword
 
 
         return (
@@ -75,20 +71,6 @@ class SignUpFormBase extends Component<IRegisterComponentProps, IRegisterCompone
                         justify="center"
                         alignItems="center"
                     >
-                        <Grid className="register-form-inputs" >
-                            <TextField
-                                required
-                                id="username"
-                                label="Username"
-                                value={username}
-                                onChange={(event: any) => { this.setState({ username: event.target.value }) }}
-                                variant="outlined"
-                                fullWidth
-                                autoFocus
-                                margin="normal"
-                                color="secondary"
-                            />
-                        </Grid>
                         <Grid className="register-form-inputs" >
                             <TextField
                                 required
@@ -108,6 +90,9 @@ class SignUpFormBase extends Component<IRegisterComponentProps, IRegisterCompone
                                 required
                                 id="password"
                                 label="Password"
+                                type="password"
+                                error={this.state.password !== this.state.confirmPassword}
+                                helperText={this.state.password !== this.state.confirmPassword ? "Passwords do not match" : ""}
                                 value={password}
                                 onChange={(event: any) => { this.setState({ password: event.target.value }) }}
                                 variant="outlined"
@@ -122,6 +107,9 @@ class SignUpFormBase extends Component<IRegisterComponentProps, IRegisterCompone
                                 required
                                 id="confirm password"
                                 label="Confirm Password"
+                                type="password"
+                                error={this.state.password !== this.state.confirmPassword}
+                                helperText={this.state.password !== this.state.confirmPassword ? "Passwords do not match" : ""}
                                 value={confirmPassword}
                                 onChange={(event: any) => { this.setState({ confirmPassword: event.target.value }) }}
                                 variant="outlined"
@@ -141,9 +129,6 @@ class SignUpFormBase extends Component<IRegisterComponentProps, IRegisterCompone
                             Sign Up
                         </Button>
                     </Grid>
-
-                    {/* TODO: Put proper error message */}
-                    {error && <p>Error Message</p>}
                 </form>
             </Container>
         );
@@ -152,7 +137,8 @@ class SignUpFormBase extends Component<IRegisterComponentProps, IRegisterCompone
 
 const SignUpLink = () => (
     <p>
-        Don't have an account?
+
+        {`Don't have an account? `}
         <Link to={ROUTES.REGISTER}>Sign Up</Link>
     </p>
 );

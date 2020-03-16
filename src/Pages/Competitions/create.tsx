@@ -14,6 +14,7 @@ import { compose } from "recompose";
 import Competition from "../../models/competition";
 import { Grid, Container, FormControl } from "@material-ui/core";
 import './create_form_styles.css'
+import { parse } from "date-fns";
 
 
 interface ISubmissionFormState {
@@ -24,6 +25,8 @@ interface ISubmissionFormState {
     compEndTime: Date,
     compProblems: number;
     compFee: number;
+    endTimeError: string,
+    startTimeError: string,
     compProblemsErrorText: string;
     compFeeErrorText: string;
 }
@@ -43,6 +46,8 @@ const INITIAL_STATE = {
     compEndTime: new Date(),
     compProblems: 0,
     compFee: 0,
+    endTimeError: "",
+    startTimeError: "",
     compProblemsErrorText: "",
     compFeeErrorText: "",
 };
@@ -86,9 +91,33 @@ class SubmissionFormBase extends Component<any, ISubmissionFormState> {
         }
     };
 
+    onChangeEndTime = (time: any) => {
+        if (Date.parse(time) < this.state.compStartTime.getTime()) {
+            this.setState({ endTimeError: "End time must be after start time" });
+        } else {
+            this.setState({ compEndTime: time, endTimeError: "" });
+        }
+    };
+
+    onChangeStartTime = (time: any) => {
+        if (Date.parse(time) < this.state.compEndTime.getTime()) {
+            this.setState({ startTimeError: "Start time must be before start time" });
+        } else {
+            this.setState({ compStartTime: time, startTimeError: "" });
+        }
+    };
+
     render() {
         const { compName, compDesc, compDate, compStartTime, compEndTime, compProblems, compFee } = this.state;
-        const isInvalid = compName === "" || compDesc === "" || compDate.toString() === "" || compStartTime.toString() === "" || compEndTime.toString() === "" || compProblems === 0 || compProblems.toString() === "";
+        const isInvalid = compName === "" ||
+            compDesc === "" ||
+            compDate.toString() === "" ||
+            compStartTime.toString() === "" ||
+            compEndTime.toString() === "" ||
+            compProblems === 0 ||
+            compProblems.toString() === "" ||
+            this.state.compProblemsErrorText !== "" ||
+            this.state.compFeeErrorText !== ""
 
         return (
             <Container className="create-form-container">
@@ -152,7 +181,9 @@ class SubmissionFormBase extends Component<any, ISubmissionFormState> {
                                         label="Start Time"
                                         color="secondary"
                                         value={compStartTime}
-                                        onChange={(time: any) => { this.setState({ compStartTime: time }) }}
+                                        error={this.state.startTimeError !== ""}
+                                        helperText={this.state.startTimeError}
+                                        onChange={this.onChangeStartTime}
                                         KeyboardButtonProps={{
                                             'aria-label': 'change time',
                                         }}
@@ -167,7 +198,9 @@ class SubmissionFormBase extends Component<any, ISubmissionFormState> {
                                         label="End Time"
                                         color="secondary"
                                         value={compEndTime}
-                                        onChange={(time: any) => { this.setState({ compEndTime: time }) }}
+                                        error={this.state.endTimeError !== ""}
+                                        helperText={this.state.endTimeError}
+                                        onChange={this.onChangeEndTime}
                                         KeyboardButtonProps={{
                                             'aria-label': 'change time',
                                         }}
