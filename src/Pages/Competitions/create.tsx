@@ -25,6 +25,7 @@ interface ISubmissionFormState {
     compEndTime: Date,
     compProblems: number;
     compFee: number;
+    startDateError: string,
     endTimeError: string,
     startTimeError: string,
     compProblemsErrorText: string;
@@ -46,6 +47,7 @@ const INITIAL_STATE = {
     compEndTime: new Date(),
     compProblems: 0,
     compFee: 0,
+    startDateError: "",
     endTimeError: "",
     startTimeError: "",
     compProblemsErrorText: "",
@@ -82,12 +84,19 @@ class SubmissionFormBase extends Component<any, ISubmissionFormState> {
         }
     };
 
-
     onChangeCompFee = (event: { target: { id: any; value: any; } }) => {
         if (event.target.value < 0) {
             this.setState({ compFeeErrorText: "Number of problems canot be negative" });
         } else {
             this.setState({ compFee: event.target.value, compFeeErrorText: "" });
+        }
+    };
+
+    onChangeStartDate = (date: any) => {
+        if (Date.parse(date).valueOf() < new Date().setHours(0, 0, 0, 0).valueOf()) {
+            this.setState({ startDateError: "Start date cannot be before today" });
+        } else {
+            this.setState({ compDate: date, startDateError: "" });
         }
     };
 
@@ -165,12 +174,15 @@ class SubmissionFormBase extends Component<any, ISubmissionFormState> {
                                     margin="normal"
                                     color="secondary"
                                     value={compDate}
-                                    onChange={(date: any) => { this.setState({ compDate: date }) }}
+                                    error={this.state.startDateError !== ""}
+                                    helperText={this.state.startDateError}
+                                    onChange={this.onChangeStartDate}
                                     id="compStart"
                                     label="Start Date"
                                     KeyboardButtonProps={{
                                         'aria-label': 'change date',
                                     }}
+                                    autoOk
                                 />
                             </Grid>
                             <Grid className="create-form-inputs" container direction="row" justify="flex-start" >
