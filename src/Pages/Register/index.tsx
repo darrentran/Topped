@@ -16,16 +16,16 @@ const SignUpPage = () => (
 const INITIAL_STATE = {
     username: "",
     email: "",
-    passwordOne: "",
-    passwordTwo: "",
+    password: "",
+    confirmPassword: "",
     error: false
 };
 
 interface IRegisterComponentState {
     username: string;
     email: string;
-    passwordOne: string;
-    passwordTwo: string;
+    password: string;
+    confirmPassword: string;
     error: boolean;
 }
 
@@ -41,10 +41,10 @@ class SignUpFormBase extends Component<IRegisterComponentProps, IRegisterCompone
     }
 
     onSubmit = (event: any) => {
-        const { email, passwordOne } = this.state;
+        const { email, password } = this.state;
 
         this.props.firebase
-            .doCreateUserWithEmailAndPassword(email, passwordOne)
+            .doCreateUserWithEmailAndPassword(email, password)
             .then((authUser: any) => {
                 this.setState({ ...INITIAL_STATE });
                 this.props.history.push(ROUTES.LANDING);
@@ -57,11 +57,11 @@ class SignUpFormBase extends Component<IRegisterComponentProps, IRegisterCompone
     };
 
     render() {
-        const { username, email, passwordOne, passwordTwo, error } = this.state;
+        const { username, email, password, confirmPassword, error } = this.state;
 
         const isInvalid =
-            passwordOne !== passwordTwo ||
-            passwordOne === "" ||
+            password !== confirmPassword ||
+            password === "" ||
             email === "" ||
             username === "";
 
@@ -108,8 +108,8 @@ class SignUpFormBase extends Component<IRegisterComponentProps, IRegisterCompone
                                 required
                                 id="password"
                                 label="Password"
-                                value={passwordOne}
-                                onChange={(event: any) => { this.setState({ passwordOne: event.target.value }) }}
+                                value={password}
+                                onChange={(event: any) => { this.setState({ password: event.target.value }) }}
                                 variant="outlined"
                                 fullWidth
                                 autoFocus
@@ -122,8 +122,8 @@ class SignUpFormBase extends Component<IRegisterComponentProps, IRegisterCompone
                                 required
                                 id="confirm password"
                                 label="Confirm Password"
-                                value={passwordTwo}
-                                onChange={(event: any) => { this.setState({ passwordTwo: event.target.value }) }}
+                                value={confirmPassword}
+                                onChange={(event: any) => { this.setState({ confirmPassword: event.target.value }) }}
                                 variant="outlined"
                                 fullWidth
                                 autoFocus

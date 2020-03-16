@@ -12,7 +12,7 @@ import { withRouter } from "react-router-dom";
 import { withFirebase } from "../../Firebase/Database";
 import { compose } from "recompose";
 import Competition from "../../models/competition";
-import { Grid, Box, Container, FormControl } from "@material-ui/core";
+import { Grid, Container, FormControl } from "@material-ui/core";
 import './create_form_styles.css'
 
 
