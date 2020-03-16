@@ -75,7 +75,7 @@ class SignUpFormBase extends Component<IRegisterComponentProps, IRegisterCompone
                     </FormControl>
                     <FormControl margin="normal" required fullWidth>
                         <InputLabel htmlFor="email">Email Address</InputLabel>
-                        <Input id="email" name="email" autoComplete="off" autoFocus value={email} onChange={(event: any) => { this.setState({ email: event.target.value }) }} />
+                        <Input id="email" name="email" autoComplete="off" value={email} onChange={(event: any) => { this.setState({ email: event.target.value }) }} />
                     </FormControl>
                     <FormControl margin="normal" required fullWidth>
                         <InputLabel htmlFor="passwordOne">Password</InputLabel>

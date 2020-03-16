@@ -86,6 +86,7 @@ class SubmissionFormBase extends Component<any, ISubmissionFormState> {
                                 value={compName}
                                 onChange={this.onChange}
                                 fullWidth
+                                autoFocus
                             />
                         </Grid>
                         <Grid className="create-form-inputs" >

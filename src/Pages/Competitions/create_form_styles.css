@@ -19,5 +19,6 @@
 }
 
 .create-submit-button {
-    padding-bottom: 1%;
+    align-items: flex-start;
+    padding-top: 1%;
 }
