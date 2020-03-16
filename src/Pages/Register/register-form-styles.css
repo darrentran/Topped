@@ -1,0 +1,12 @@
+.register-form-container {
+    background-color: white;
+    min-height: fit-content;
+    border-radius: 8px;
+    padding-bottom: 1%;
+    align-items: flex-start;
+}
+
+.register-submit-button {
+    align-items: flex-start;
+    padding-top: 1%;
+}

@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Firebase, { FirebaseContext } from './Firebase/Database';
+import { ToastProvider } from 'react-toast-notifications'
 import * as serviceWorker from './serviceWorker';
 
 const theme = createMuiTheme({
@@ -24,7 +25,9 @@ const theme = createMuiTheme({
 ReactDOM.render(
     <MuiThemeProvider theme={theme}>
         <FirebaseContext.Provider value={new Firebase()}>
-            <App />
+            <ToastProvider>
+                <App />
+            </ToastProvider>
         </FirebaseContext.Provider>
     </MuiThemeProvider>,
     document.getElementById('root'),

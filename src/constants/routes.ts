@@ -6,3 +6,4 @@ export const PASSWORD_FORGET = '/pw-forget';
 export const COMPETITION = '/competition';
 export const NEWCOMP = '/newcompetition';
 export const LEADERBOARD = '/leaderboard';
+export const CREATE_COMPETITION = ' /competition/create'

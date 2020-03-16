@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
-import { FormControl, Input, InputLabel, Button } from '@material-ui/core';
+import { FormControl, Input, InputLabel, Button, Container, Grid, TextField, Typography } from '@material-ui/core';
 import { SignUpLink } from "../../Pages/Register";
 // import { PasswordForgetLink } from '../PasswordForget';
 import { withFirebase } from "../../Firebase/Database";
 import * as ROUTES from "../../constants/routes";
+import './login-form-styles.css'
 
 const SignInPage = () => (
     <div>
@@ -58,24 +59,30 @@ class SignInFormBase extends Component<ILoginComponentProps, ILoginComponentStat
         const isInvalid = password === "" || email === "";
 
         return (
-            // TODO: Style the form to make it look nicer
-            <form onSubmit={this.onSubmit}>
-                <FormControl margin="normal" required fullWidth>
-                    <InputLabel htmlFor="email">Email Address</InputLabel>
-                    <Input id="email" name="email" autoComplete="off" autoFocus value={email} onChange={(event: any) => { this.setState({ email: event.target.value }) }} />
-                </FormControl>
-                <FormControl margin="normal" required fullWidth>
-                    <InputLabel htmlFor="password">Password</InputLabel>
-                    <Input name="password" type="password" id="password" autoComplete="off" value={password} onChange={(event: any) => { this.setState({ password: event.target.value }) }} />
-                </FormControl>
+            <Container className="login-form-container">
+                <form onSubmit={this.onSubmit}>
+                    <FormControl margin="normal" required fullWidth>
+                        <InputLabel htmlFor="email">Email Address</InputLabel>
+                        <Input id="email" name="email" autoComplete="off" autoFocus value={email} onChange={(event: any) => { this.setState({ email: event.target.value }) }} />
+                    </FormControl>
+                    <FormControl margin="normal" required fullWidth>
+                        <InputLabel htmlFor="password">Password</InputLabel>
+                        <Input name="password" type="password" id="password" autoComplete="off" value={password} onChange={(event: any) => { this.setState({ password: event.target.value }) }} />
+                    </FormControl>
+                    <Grid
+                        className="login-button"
+                        container
+                        direction="row"
+                    >
+                        <Button disabled={isInvalid} variant="outlined" type="submit" >
+                            Sign In
+                        </Button>
+                    </Grid>
 
-                <Button disabled={isInvalid} type="submit">
-                    Sign In
-                </Button>
-
-                {/* TODO: Put proper error message */}
-                {error && <p>Error Message</p>}
-            </form>
+                    {/* TODO: Put proper error message */}
+                    {error && <p>Error Message</p>}
+                </form>
+            </Container>
         );
     }
 }

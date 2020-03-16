@@ -1,14 +1,15 @@
-var currentDate = new Date().toJSON();
+var currentDate = new Date();
 var statusEnum = Object.freeze({ active: 1, completed: 2, not_started: 3 });
 
 export default class Competition {
     id: string;
     name: string;
     desc: string;
-    startDate: string;
-    endDate: string;
-    fee: string;
-    problems: string;
+    startDate: Date;
+    startTime: Date;
+    endTime: Date;
+    fee: number;
+    problems: number;
     status: number;
     admins: string;
 
@@ -16,20 +17,22 @@ export default class Competition {
         id: string,
         name: string,
         desc: string,
-        startDate: string,
-        endDate: string,
-        problems: string,
-        fee: string,
+        startDate: Date,
+        startTime: Date,
+        endTime: Date,
+        fee: number,
+        problems: number,
         admins: string,
     ) {
         this.id = id;
         this.name = name;
         this.desc = desc;
         this.startDate = startDate;
-        this.endDate = endDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.fee = fee;
         this.problems = problems;
-        if (currentDate > this.startDate && currentDate < this.endDate) {
+        if (currentDate.setHours(0, 0, 0, 0) === this.startDate.setHours(0, 0, 0, 0)) {
             this.status = statusEnum.active;
         } else {
             this.status = statusEnum.not_started;

@@ -1,0 +1,23 @@
+.create-form-container {
+    background-color: white;
+    min-height: fit-content;
+    border-radius: 8px;
+    padding-bottom: 1%;
+    align-items: flex-start;
+}
+
+.create-form-inputs {
+    border: black;
+    width: inherit;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+.create-form-time-picker {
+    padding-right: 1%;
+    text-decoration-color: green;
+}
+
+.create-submit-button {
+    padding-bottom: 1%;
+}

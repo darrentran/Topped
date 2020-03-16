@@ -3,7 +3,8 @@ import { Link, withRouter } from "react-router-dom";
 import { compose } from "recompose";
 import { withFirebase } from "../../Firebase/Database";
 import * as ROUTES from "../../constants/routes";
-import { FormControl, Input, InputLabel, Button } from '@material-ui/core';
+import { FormControl, Input, InputLabel, Button, Container, Grid } from '@material-ui/core';
+import './register-form-styles.css'
 
 const SignUpPage = () => (
     <div>
@@ -66,32 +67,38 @@ class SignUpFormBase extends Component<IRegisterComponentProps, IRegisterCompone
 
 
         return (
-            // TODO: Style the form to make it look nicer
-            <form onSubmit={this.onSubmit}>
-                <FormControl margin="normal" required fullWidth>
-                    <InputLabel htmlFor="username">Username</InputLabel>
-                    <Input id="username" name="username" autoComplete="off" autoFocus value={username} onChange={(event: any) => { this.setState({ username: event.target.value }) }} />
-                </FormControl>
-                <FormControl margin="normal" required fullWidth>
-                    <InputLabel htmlFor="email">Email Address</InputLabel>
-                    <Input id="email" name="email" autoComplete="off" autoFocus value={email} onChange={(event: any) => { this.setState({ email: event.target.value }) }} />
-                </FormControl>
-                <FormControl margin="normal" required fullWidth>
-                    <InputLabel htmlFor="passwordOne">Password</InputLabel>
-                    <Input name="passwordOne" type="password" id="passwordOne" autoComplete="off" value={passwordOne} onChange={(event: any) => { this.setState({ passwordOne: event.target.value }) }} />
-                </FormControl>
-                <FormControl margin="normal" required fullWidth>
-                    <InputLabel htmlFor="passwordTwo">Confirm Password</InputLabel>
-                    <Input name="passwordTwo" type="password" id="passwordTwo" autoComplete="off" value={passwordTwo} onChange={(event: any) => { this.setState({ passwordTwo: event.target.value }) }} />
-                </FormControl>
+            <Container className="register-form-container">
+                <form onSubmit={this.onSubmit}>
+                    <FormControl margin="normal" required fullWidth>
+                        <InputLabel htmlFor="username">Username</InputLabel>
+                        <Input id="username" name="username" autoComplete="off" autoFocus value={username} onChange={(event: any) => { this.setState({ username: event.target.value }) }} />
+                    </FormControl>
+                    <FormControl margin="normal" required fullWidth>
+                        <InputLabel htmlFor="email">Email Address</InputLabel>
+                        <Input id="email" name="email" autoComplete="off" autoFocus value={email} onChange={(event: any) => { this.setState({ email: event.target.value }) }} />
+                    </FormControl>
+                    <FormControl margin="normal" required fullWidth>
+                        <InputLabel htmlFor="passwordOne">Password</InputLabel>
+                        <Input name="passwordOne" type="password" id="passwordOne" autoComplete="off" value={passwordOne} onChange={(event: any) => { this.setState({ passwordOne: event.target.value }) }} />
+                    </FormControl>
+                    <FormControl margin="normal" required fullWidth>
+                        <InputLabel htmlFor="passwordTwo">Confirm Password</InputLabel>
+                        <Input name="passwordTwo" type="password" id="passwordTwo" autoComplete="off" value={passwordTwo} onChange={(event: any) => { this.setState({ passwordTwo: event.target.value }) }} />
+                    </FormControl>
+                    <Grid
+                        className="register-submit-button"
+                        container
+                        direction="row"
+                    >
+                        <Button disabled={isInvalid} variant="outlined" type="submit">
+                            Sign Up
+                        </Button>
+                    </Grid>
 
-                <Button disabled={isInvalid} type="submit">
-                    Sign Up
-                </Button>
-
-                {/* TODO: Put proper error message */}
-                {error && <p>Error Message</p>}
-            </form>
+                    {/* TODO: Put proper error message */}
+                    {error && <p>Error Message</p>}
+                </form>
+            </Container>
         );
     }
 }

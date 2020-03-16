@@ -1,7 +1,6 @@
 import app from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
-
 import Competition from '../../models/competition';
 
 const firebaseConfig = {
@@ -13,6 +12,7 @@ const firebaseConfig = {
     messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
 };
 const COMPETITIONS_COLLECTION = 'competitions';
+// const { addToast } = useToasts();
 
 class Firebase {
     // TODO: Fix types
@@ -25,6 +25,7 @@ class Firebase {
         this.auth = app.auth();
         this.firestore = app.firestore();
     }
+
 
     /** TODO: Temporary test function -> Remove */
     testCallback = (result: string) => {
@@ -52,8 +53,14 @@ class Firebase {
         competitionRef.set({
             ...competition,
             id: competitionRef.id,
-        });
-    };
+        })
+            .then(() => {
+                console.log("Document successfully written!");
+            })
+            .catch((error) => {
+                console.error("Error writing document: ", error);
+            });
+    }
 
     /**
      * Updates the competition object from firebase

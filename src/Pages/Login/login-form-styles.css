@@ -1,0 +1,12 @@
+.login-form-container {
+    background-color: white;
+    min-height: fit-content;
+    border-radius: 8px;
+    padding-bottom: 1%;
+    align-items: flex-start;
+}
+
+.login-button {
+    align-items: flex-start;
+    padding-top: 1%;
+}
