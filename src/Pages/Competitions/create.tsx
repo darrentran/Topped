@@ -88,7 +88,7 @@ class SubmissionFormBase extends Component<any, ISubmissionFormState> {
 
     render() {
         const { compName, compDesc, compDate, compStartTime, compEndTime, compProblems, compFee } = this.state;
-        const isInvalid = compName === "" || compDesc === "" || compDate.toString() === "" || compStartTime.toString() === "" || compEndTime.toString() === "" || compProblems === 0;
+        const isInvalid = compName === "" || compDesc === "" || compDate.toString() === "" || compStartTime.toString() === "" || compEndTime.toString() === "" || compProblems === 0 || compProblems.toString() === "";
 
         return (
             <Container className="create-form-container">
@@ -134,6 +134,7 @@ class SubmissionFormBase extends Component<any, ISubmissionFormState> {
                                     variant="inline"
                                     format="MM/dd/yyyy"
                                     margin="normal"
+                                    color="secondary"
                                     value={compDate}
                                     onChange={(date: any) => { this.setState({ compDate: date }) }}
                                     id="compStart"
@@ -149,6 +150,7 @@ class SubmissionFormBase extends Component<any, ISubmissionFormState> {
                                         margin="normal"
                                         id="time-picker"
                                         label="Start Time"
+                                        color="secondary"
                                         value={compStartTime}
                                         onChange={(time: any) => { this.setState({ compStartTime: time }) }}
                                         KeyboardButtonProps={{
@@ -163,6 +165,7 @@ class SubmissionFormBase extends Component<any, ISubmissionFormState> {
                                         margin="normal"
                                         id="time-picker"
                                         label="End Time"
+                                        color="secondary"
                                         value={compEndTime}
                                         onChange={(time: any) => { this.setState({ compEndTime: time }) }}
                                         KeyboardButtonProps={{
